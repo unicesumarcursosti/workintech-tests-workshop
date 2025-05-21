@@ -2,7 +2,8 @@ package br.com.workintech.api.services;
 
 public class PasswordValidator {
     public static boolean isValid(String password) {
-        if (password == null) return false;
+        if (password == null)
+            throw new IllegalArgumentException("senha não pode ser nula");
 
         int tamanho = password.length();
         if (tamanho < 6 || tamanho > 12)
@@ -16,6 +17,14 @@ public class PasswordValidator {
             if (Character.isDigit(c)) temNumero = true;
         }
 
-        return temMaiuscula && temNumero;
+        if (!temMaiuscula) {
+            throw new IllegalArgumentException("não possui letra maiuscula");
+        }
+
+        if (!temNumero) {
+            throw new IllegalArgumentException("não possui número");
+        }
+
+        return true;
     }
 }

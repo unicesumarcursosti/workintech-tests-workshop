@@ -16,16 +16,18 @@ public class PasswordValidatorTest {
         assertThat(resultado).isTrue();
     }
 
-    @ParameterizedTest
-    @ValueSource(strings = {"", "abc123", "ABCabc!@#", "ABC", "hAS12fshjkfsdhjkfdsjk"})
-    public void deveTestarUmaSenhaInvalida(String password) {
-        boolean resultado = PasswordValidator.isValid(password);
-        assertThat(resultado).isFalse();
+    @Test
+    public void deveTestarSenhaEmBranco() {
+        assertThatThrownBy(() -> PasswordValidator.isValid(null))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("senha não pode ser nula");
     }
 
-    public void deveTestarUmaSenhaCurta() {
-        assertThatThrownBy(() -> PasswordValidator.isValid(""))
-                .isInstanceOf(Exception.class)
-                .hasMessageContaining("senha curta");
+    @ParameterizedTest
+    @ValueSource(strings = {"Abc12", "a", "1", "Abc123456qwet", "Abc123456qweAbc123456qwe"})
+    public void deveTestarSenhaComTamanhoInvalido(String password) {
+        assertThatThrownBy(() -> PasswordValidator.isValid(password))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("tamanho inválido");
     }
 }
