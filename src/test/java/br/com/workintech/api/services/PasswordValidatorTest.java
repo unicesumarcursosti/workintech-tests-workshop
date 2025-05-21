@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.*;
 public class PasswordValidatorTest {
 
     @ParameterizedTest
-    @ValueSource(strings = {"abcABC123", "ABC123!@#", "abc!@#123ACB"})
+    @ValueSource(strings = {"abcabc123", "ABC123!@#", "abc!@#123ACB"})
     public void deveTestarUmaSenhaValida(String password) {
         boolean resultado = PasswordValidator.isValid(password);
         assertThat(resultado).isTrue();
