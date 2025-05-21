@@ -5,7 +5,8 @@ public class PasswordValidator {
         if (password == null) return false;
 
         int tamanho = password.length();
-        if (tamanho < 6 || tamanho > 12) return false;
+        if (tamanho < 6 || tamanho > 12)
+            throw new IllegalArgumentException("tamanho inválido");
 
         boolean temMaiuscula = false;
         boolean temNumero = false;

@@ -1,12 +1,16 @@
 package br.com.workintech.api.controllers;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import br.com.workintech.api.DTO.AddOperationDTO;
+import br.com.workintech.api.DTO.AddOperationResult;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/calculator")
 public class IndexController {
-    @GetMapping("/")
-    public String index() {
-        return "Hello World!";
+
+    @PostMapping("/add")
+    public AddOperationResult add(@RequestBody AddOperationDTO addOperationDTO) {
+
+        return new AddOperationResult(10);
     }
 }
